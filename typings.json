@@ -1,0 +1,8 @@
+{
+  "name": "ordamo-v3-sdk",
+  "version": false,
+  "dependencies": {},
+  "ambientDependencies": {
+    "node": "registry:dt/node#4.0.0+20160316042000"
+  }
+}

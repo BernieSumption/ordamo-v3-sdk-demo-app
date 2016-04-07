@@ -1,0 +1,1 @@
+This text is embedded from a text file
