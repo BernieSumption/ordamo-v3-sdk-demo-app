@@ -1,9 +1,9 @@
-/// <reference path="../../typings/main.d.ts" />
+/// <reference path="../../../typings/main.d.ts" />
 
 "use strict";
 
 import {expect} from "chai";
-import {myFunction} from "../lib";
+import {myFunction} from "../../browser/lib";
 
 describe("myFunction", () => {
   it("should be a function", () => {

@@ -3,7 +3,7 @@
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": true,
-        "outDir": "../__tmp_build",
+        "outDir": "../__tmp_build/js",
         "moduleResolution": "node"
     }
 }
