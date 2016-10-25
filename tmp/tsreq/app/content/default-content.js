@@ -5,18 +5,16 @@
  * Node-only functionality.
  */
 "use strict";
-var schema_1 = require("./schema");
-var sdk = require("ordamo-v3-sdk");
 function getContent() {
-    return sdk.validateContent(schema_1.default(), {
-        image: "image content?",
+    return {
+        image: "assets/husky.jpg",
         imageList: [
-            "image 1",
-            "image 2"
+            "assets/birthday.jpg",
+            "assets/curiosity.jpg"
         ],
         text: "Here's a message!",
         textList: ["Here's a message!", "and another!"]
-    });
+    };
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = getContent;

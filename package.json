@@ -3,9 +3,11 @@
   "version": "1.1.0",
   "description": "A demo application that uses the ordamo-v3-sdk package. This can be used as a template for new Ordamo V3 apps.",
   "scripts": {
-    "start": "brunch watch --server",
+    "clean": "rimraf __tmp_build",
+    "start": "npm run clean && npm run build-content && brunch watch --server",
     "release": "brunch build --production",
-    "test": "tsc --project app --noEmit && tslint \"app/**/*.{ts,tsx}\""
+    "test": "tsc --project app --noEmit && tslint \"app/**/*.{ts,tsx}\"",
+    "build-content": "ordamo-v3-sdk build-content app/content __tmp_build/content"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
     "css-brunch": "^2.6.1",
     "javascript-brunch": "^2.0.0",
     "less-brunch": "^2.7.1",
+    "rimraf": "^2.5.4",
     "tslint": "^3.15.1",
     "typescript": "^2.0.3",
     "uglify-js-brunch": "^2.0.1"

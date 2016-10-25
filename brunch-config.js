@@ -8,13 +8,16 @@ module.exports = {
         stylesheets: { joinTo: 'app.css' }
     },
     paths: {
-        public: "__tmp_build/public"
+        public: "__tmp_build"
     },
     overrides: {
         production: {
             paths: {
-                public: `release/public`
+                public: `release`
             }
         }
+    },
+    server: {
+        noPushState: true
     }
 };

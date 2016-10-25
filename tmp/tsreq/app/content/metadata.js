@@ -1,7 +1,6 @@
 /// <reference path="../../typings/index.d.ts" />
 "use strict";
 var pkg = require(__dirname + "/../../package.json");
-console.log(__dirname);
 function getMetadata() {
     return {
         id: pkg.name,

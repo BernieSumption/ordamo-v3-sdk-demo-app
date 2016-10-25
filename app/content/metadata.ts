@@ -12,7 +12,6 @@
 
 import * as sdk from "ordamo-v3-sdk";
 const pkg = require(__dirname + "/../../package.json");
-console.log(__dirname);
 
 export default function getMetadata(): sdk.AppMetadata {
   return {
