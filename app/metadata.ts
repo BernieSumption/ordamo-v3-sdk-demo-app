@@ -1,4 +1,4 @@
-/// <reference path="../../typings/index.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 
 
 /**
@@ -10,8 +10,10 @@
  * so it's fine to use Node-only functionality.
  */
 
+declare function require(path: string): any;
+
 import * as sdk from "ordamo-v3-sdk";
-const pkg = require(__dirname + "/../../package.json");
+const pkg = require(__dirname + "/../package.json");
 
 export default function getMetadata(): sdk.AppMetadata {
   return {
