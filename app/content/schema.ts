@@ -40,6 +40,6 @@ const SCHEMA = {
 
 export type DemoAppContent = typeof SCHEMA;
 
-export function getSchema(): DemoAppContent {
+export default function getSchema(): DemoAppContent {
   return SCHEMA;
 }

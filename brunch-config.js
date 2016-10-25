@@ -8,12 +8,12 @@ module.exports = {
         stylesheets: { joinTo: 'app.css' }
     },
     paths: {
-        public: "__tmp_build"
+        public: "__tmp_build/public"
     },
     overrides: {
         production: {
             paths: {
-                public: `release/${pkg.name}--${pkg.version}`
+                public: `release/public`
             }
         }
     }

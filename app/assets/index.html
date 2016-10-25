@@ -37,9 +37,17 @@
 		<li><code>npm run release</code> - make a release build. The newly created build file is copied to <code>release/app-name--version.js</code></li>
 	</ul>
 	<h2>Working with content</h2>
-	<p>SDK apps define the content that they accept through a "content schema". TODO: finish this doc</p>
+	<p>SDK apps define the content that they accept through a "content schema". This demo app uses every available type of content, check out the schema definition in <code>app/content/schema.ts</code>.</p>
+	<h3>Images</h3>
 	<table>
-		<tr></tr>
+		<tr>
+			<th>Single image</th>
+			<th>List of images</th>
+		</tr>
+		<tr>
+			<td id="content-image"></td>
+			<td id="content-image-list"></td>
+		</tr>
 	</table>
 	<p class="caption">"Happy Birthday Johan!" and "Curiosity" © Shelly ʕ•ᴥ•ʔ Licensed under CC-BY.</p>
 	<h3>Embedding static assets in LESS</h3>

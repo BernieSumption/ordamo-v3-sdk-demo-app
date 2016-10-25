@@ -1,4 +1,4 @@
-"use strict";
+
 
 /**
  * This is a content generation module. It exports one function that returns an object.
@@ -7,12 +7,12 @@
  * Node-only functionality.
  */
 
-import {DemoAppContent, getSchema} from "./schema";
-const urify = require("urify");
+import getSchema from "./schema";
+import {DemoAppContent} from "./schema";
 import * as sdk from "ordamo-v3-sdk";
 
-export function getContent(): DemoAppContent {
-  return sdk.validateContent(getSchema(), {
+export default function getContent() {
+  return {
     image: "image content?",
     imageList: [
       "image 1",
@@ -20,5 +20,5 @@ export function getContent(): DemoAppContent {
     ],
     text: "Here's a message!",
     textList: ["Here's a message!", "and another!"]
-  });
+  };
 }
