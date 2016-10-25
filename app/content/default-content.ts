@@ -13,10 +13,10 @@ import * as sdk from "ordamo-v3-sdk";
 
 export default function getContent() {
   return {
-    image: "assets/husky.jpg",
+    image: "default-content/husky.jpg",
     imageList: [
-      "assets/birthday.jpg",
-      "assets/curiosity.jpg"
+      "default-content/birthday.jpg",
+      "default-content/curiosity.jpg"
     ],
     text: "Here's a message!",
     textList: ["Here's a message!", "and another!"]
