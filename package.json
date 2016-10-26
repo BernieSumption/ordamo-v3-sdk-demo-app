@@ -5,8 +5,8 @@
   "scripts": {
     "clean": "rimraf __tmp_build",
     "start": "npm run clean && npm run build-content && brunch watch --server",
-    "release": "brunch build --production",
     "test": "tsc --project app --noEmit && tslint \"app/**/*.{ts,tsx}\"",
+    "release": "brunch build --production",
     "build-content": "ordamo-v3-sdk build-content app __tmp_build app/assets"
   },
   "repository": {

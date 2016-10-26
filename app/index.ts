@@ -1,7 +1,7 @@
 
 
 import * as sdk from "ordamo-v3-sdk";
-import getSchema from "./content/schema";
+import getSchema from "./content-schema";
 
 let sdkInstance = new sdk.OrdamoSDK({
     initCallback: handleSDKInit,

@@ -1,6 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
-
-
 /**
  * This is a metadata generation module. It exports one default function that returns an object
  * that tells the apphost how to display your app.
@@ -13,13 +10,14 @@
 declare function require(path: string): any;
 
 import * as sdk from "ordamo-v3-sdk";
-const pkg = require(__dirname + "/../package.json");
 
 export default function getMetadata(): sdk.AppMetadata {
   return {
-    id: pkg.name,
-    version: pkg.version,
-    description: pkg.description,
+    // use of sdk.AUTO_METADATA causes the value to be filled in from the package.json fields
+    // of the same name when this file is compiled by the ordamo-v3-sdk command line utility 
+    id: sdk.AUTO_METADATA,
+    version: sdk.AUTO_METADATA,
+    description: sdk.AUTO_METADATA,
 
     defaultIconSrc: "menu-icons/default-app-icon.png",
     menuNodes: [

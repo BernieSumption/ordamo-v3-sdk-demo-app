@@ -7,9 +7,6 @@
  * Node-only functionality.
  */
 
-import getSchema from "./schema";
-import {DemoAppContent} from "./schema";
-import * as sdk from "ordamo-v3-sdk";
 
 export default function getContent() {
   return {
