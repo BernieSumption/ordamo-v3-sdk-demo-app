@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Ordamo SDK Demo App</title>
+	<script>
+		// Create the style and js links dynamically, appending the HTML page's query string
+		// to the URL. Tis is because this app will be called with its version number as a
+		// query string cachebuster, and propogating this to the script and style assets ensures
+		// that version updates are not intefered with by caching.
+		var appStyle = document.createElement("link");
+		appStyle.setAttribute("rel", "stylesheet");
+		appStyle.setAttribute("type", "text/css");
+		appStyle.setAttribute("href", "app.css" + document.location.search);
+		document.head.appendChild(appStyle);
+
+		var appScript = document.createElement("script");
+		appScript.setAttribute("src", "app.js" + document.location.search);
+		appScript.onload = function() {
+			require("index.ts");
+		}
+		document.head.appendChild(appScript);
+    </script>
+</head>
+
+<body>
+	<h1>Ordamo SDK Demo App</h1>
+	<p>Welcome to the SDK demo app. This page demonstrates the major features of the SDK.</p>
+	<h2>Introduction</h2>
+	<p>The Ordamo V3 system is a ceiling-mounted device that projects an interactive surface onto a table. This is used simultaneously
+		by several people, for example at the "inamo" series of interactive restaurants.</p>
+	<p>The frontend software running on the V3 units is a modular HTML5 application. A wrapper program called the apphost loads
+		and displays apps. Each app is simply an HTML page.</p>
+	<p>The Ordamo V3 SDK is a package designed to ease the process of developing apps. It allows apps to:</p>
+	<ul>
+		<li>declare what kind of content the app requires - this is used to create a CMS interface for the app</li>
+		<li>load content from the CMS server at runtime</li>
+		<li>find out where plates are positioned on the table to avoid drawing content in places where it will be covered by a plate</li>
+		<li>save state, so that if a user leaves the app they can resume where they left off on returning</li>
+		<li>during development, mock out the above features so that developers can test an app without access to a V3 unit or CMS server
+	</ul>
+	<h2>Getting started</h2>
+	<p>There are two main sources of information on how to build a V3 app.</p>
+	<p>This file you're looking at right now is a V3 app. It's built using <a href="http://brunch.io/">Brunch</a> because Brunch
+		is a great build tool for small apps, but it could be built with any other frontend build tool, or without any build tool
+		at all. We recommend that apps are created by copying this demo app template. It's a pattern that we've found to work well.
+		The thing that makes this page a V3 app is its use of the <a href="https://www.npmjs.com/package/ordamo-v3-sdk">ordamo-v3-sdk</a>		NPM package, defined as a dependency in package.json.
+	</p>
+	<p>The best way to get started developing a V3 app is to read through the source code of this app, and of the ordamo-v3-sdk
+		package, both of which are developed in TypeScript and well commented. It's well commented.</p>
+	<p>You may find these scripts useful, run them from a command window in the same folder as the app's package.json:</p>
+	<ul>
+		<li><code>npm start</code> - launches a development server at http://localhost:3333/ that watches your source folder and whenever
+			you change anything it recompiles the code and refreshes the browser window</li>
+		<li><code>npm run release</code> - runs tests and makes a release build. The newly created build file is copied to the <code>release</code>			folder</li>
+	</ul>
+	<h2>Limitations of apps</h2>
+	<p>Apps are created using browser technologies, so it's easy to forget that apps are not entirely like websites. Here are some
+		important differences to bear in mind:</p>
+	<ul>
+		<li>Apps are used by multiple people at a time. This has many implications, for example you can't use the HTML &lt;select&gt;
+			control, because it closes automatically when you click anywhere outside the dropdown box. With multiple people using
+			the app at the same time, if one person opened a &lt;select&gt; control it might be closed by someone else clicking on
+			a button elsewhere on the screen. If you're using 3rd party libraries and frameworks, make sure that they don't have behaviour
+			that assumes a single user. As a rule of thumb, you'll be OK with low-level frameworks that ehhance JavaScript's functionality,
+			like React, jQuery and underscore. UI frameworks that include pre-built widgets like jQuery UI probably won't work as
+			expected.
+		</li>
+		<li>Apps are controlled by touch only - mice are single-user devices and don't play well with multi-user environments. Since
+			many development machines aren't touch enabled, the SDK will automatically convert mouse events to touch events for you.
+			The SDK will also silence the original mouse events, so click listeners will not work even on a desktop machine with a
+			mouse. This is to prevent you from accidentally using functionality that won't be available in a real installation. In
+			your app code, you should listen to touchstart, touchmove and touchend events. Use touchstart instead of click.</li>
+		<li>There are two kinds of app, fullscreen and normal. Fullscreen apps appear above all other content, and can receive touch
+			events.
+			<li>Normal apps are simpler to develop because they appear underneath an interactive overlay that displays spotlights above
+				plate locations, and shows a navigation menu. The cost of this is that they can't receive touch events, and can only
+				perform interaction through the events dispatched by <code>sdkInstance.onInteractions();</code>.</li>
+			<li>Fullscreen apps appear above all other content, so can receive touch events. They must render their own plate spotlights
+				if appropriate, and must provide an exit button that calls <code>sdkInstance.requestAppClose()</code>, <a
+					href="#" id="request-app-close-button">like this one</a>.
+			</li>
+		</li>
+	</ul>
+	<h2>Working with content</h2>
+	<p>SDK apps define the content that they accept through a file called <code>content-schema.json</code>. In principle you could
+		create this file manually, but it's expected that app authors will use TypeScript and the <code>ordamo-v3-sdk</code> command
+		line utility which provide validation of the schema during development. This demo app uses every available type of content,
+		check out the schema definition in <code>app/content/schema.ts</code>.</p>
+	<p>In addition to the schema, SDK apps have a file called <code>default-content.json</code> that provides some content matching
+		the requirements define in the schema. In a live installation, if no custom content has been created in the CMS, this default
+		content is shown to the users.</p>
+	<p>Below is a demonstration of many of the options available. To see the full available options, the best source of documentation
+		is the TypeScript definitions file at <code>{your project}/node_modules/ordamo-v3-sdk/lib/index.d.ts</code>. So for example,
+		to see what optional are available on an image, check out the sdk.image function and see that it takes an ImageOptions
+		object. Find the ImageOptions interface to see the documented parameters. If you use a TypeScript-aware editor like Visual
+		Studio Code, it will automate this process for you and offer to auto-complete image options for you.</p>
+	<div class="hscroll">
+		<table>
+			<tr>
+				<th id="content-image-title"></th>
+				<th id="content-image-list-title"></th>
+				<th id="content-text-title"></th>
+				<th id="content-text-list-title"></th>
+				<th id="content-video-title"></th>
+				<th id="content-video-list-title"></th>
+				<th id="content-number-title"></th>
+				<th id="content-number-list-title"></th>
+			</tr>
+			<tr>
+				<td colspan="2">Images are supported in JPEG, PNG or GIF format. They can have a min and max width and height and optionally a defined
+					aspect ratio</td>
+				<td colspan="2">Text has a min and max length, and can permit or prohibit line breaks.</td>
+				<td colspan="2">Videos are supported in MP4, Ogg and WebM formats. Internally they are represented as images with isVideo:true set in
+					the image options.</td>
+				<td colspan="2">Numbers can be constrained to within min and max values, and to being integers.</td>
+			</tr>
+			<tr>
+				<td class="pre" id="content-image-spec"></td>
+				<td class="pre" id="content-image-list-spec"></td>
+				<td class="pre" id="content-text-spec"></td>
+				<td class="pre" id="content-text-list-spec"></td>
+				<td class="pre" id="content-video-spec"></td>
+				<td class="pre" id="content-video-list-spec"></td>
+				<td class="pre" id="content-number-spec"></td>
+				<td class="pre" id="content-number-list-spec"></td>
+			</tr>
+			<tr>
+				<td class="pre" id="content-image"></td>
+				<td class="pre" id="content-image-list"></td>
+				<td class="pre" id="content-text"></td>
+				<td class="pre" id="content-text-list"></td>
+				<td class="pre" id="content-video"></td>
+				<td class="pre" id="content-video-list"></td>
+				<td class="pre" id="content-number"></td>
+				<td class="pre" id="content-number-list"></td>
+			</tr>
+		</table>
+	</div>
+	<p class="caption">Images © Shelly ʕ•ᴥ•ʔ Licensed under CC-BY.</p>
+	<h3>Working with plate spot locations</h3>
+	<p>When deployed in a live installation, the SDK will inform apps of the actual positions of plates on the table. In development,
+		it generates mock data. Below is a live image of the current plate spots, see <code>drawPlateSpotLocations()</code> in
+		<code>index.ts</code> to see how it's drawn. You can control the mock data using URL parameters, for example adding
+		<a href="?plateSpots=4&amp;contentAreas=2" id="plate-spot-link">plateSpots=4&amp;contentAreas=2</a>** to the URL will cause
+		more plate spots and content areas to be created.
+	</p>
+	<canvas id="plate-spot-canvas"></canvas>
+	<p>** Recall that one of the app limitations documented above is that clicks don't work, you must use touch events. In order
+		to make this link work, it is necessary to attach a touchstart listener to it. See the <code>setupClickableLink()</code>		function in <code>index.ts</code></p>
+	<h3>Embedding static assets in LESS</h3>
+	<p>Finally, a note that it is good practice if an image is small and does not change that it be embedded in the stylesheet
+		to reduce the number of requests made to the server. This is a demo of an image embedded using the data-uri() function
+		in app.less.</p>
+	<p class="seal-embed"></p>
+	<p class="caption">Ice is Nice © 2014 Shelly ʕ•ᴥ•ʔ . Licensed under CC-BY.</p>
+</body>
+
+</html>

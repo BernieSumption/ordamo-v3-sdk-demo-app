@@ -1,73 +1,37 @@
 {
   "name": "ordamo-v3-sdk-demo-app",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A demo application that uses the ordamo-v3-sdk package. This can be used as a template for new Ordamo V3 apps.",
   "scripts": {
-    "build": "npm-run-all build:clean build:less build:ts build:static build:content build:browserify",
-    "build:clean": "rimraf __tmp_build",
-    "build:ts": "tsc -p src",
-    "build:static": "cpx \"src/**/*.!(ts|tsx)\" __tmp_build/js",
-    "build:less": "lessc src/style/app.less __tmp_build/out/style.css --no-ie-compat",
-    "build:browserify": "browserify __tmp_build/js/browser/index.js --outfile __tmp_build/out/browser.js",
-    "build:content": "node -e \"console.log(JSON.stringify(require(\"./__tmp_build/js/node/generate-content\")(), null, \"\t\"))\" > __tmp_build/out/default-content.json",
-    "release": "npm-run-all release:superclean release:dirty",
-    "release:dirty": "npm-run-all test release:build release:minify release:copycontent release:combine",
-    "release:superclean": "rimraf node_modules && npm install",
-    "release:build": "npm run build --production",
-    "release:minify": "uglifyjs __tmp_build/out/browser.js --screw-ie8 --compress warnings=false --beautify --output __tmp_build/out/browser.min.js",
-    "release:copycontent": "cpx __tmp_build/out/default-content.json __tmp_build/deploy/",
-    "release:combine": "node node_modules/ordamo-v3-sdk/compile-utils/concat-dist-build.js __tmp_build/out/browser.min.js __tmp_build/out/style.css __tmp_build/deploy/app.html",
-    "start": "npm run watch",
-    "watch": "npm-run-all build watch:copyindexfile watch:dirty",
-    "watch:dirty": "npm-run-all --parallel watch:ts watch:static watch:less watch:serve watch:tests watch:watchify",
-    "watch:ts": "npm run build:ts -- --watch",
-    "watch:watchify": "watchify __tmp_build/js/browser/index.js --outfile __tmp_build/out/browser.js",
-    "watch:less": "chokidar \"src/style/**/*.*\" -c \"npm run build:less\"",
-    "watch:static": "npm run build:static -- --watch",
-    "watch:copyindexfile": "cpx \"./node_modules/ordamo-v3-sdk/compile-utils/index.html\" __tmp_build/out",
-    "watch:serve": "live-server __tmp_build/out",
-    "watch:tests": "npm run test:unit -- --watch",
-    "test": "npm-run-all build:clean build:ts test:unit test:lint",
-    "test:lint": "tslint \"src/**/*.ts\"",
-    "test:unit": "mocha __tmp_build/js/node/tests/*.js --colors",
-    "test:debug": "npm run test:unit --  --debug-brk"
+    "clean": "rimraf __tmp_build",
+    "start": "npm run clean && npm run build-content && npm run start:dirty",
+    "start:dirty": "brunch watch --server",
+    "build": "npm run clean && npm run build-content && npm run build:dirty",
+    "build:dirty": "brunch build",
+    "test": "tsc --project app --noEmit && tslint \"app/**/*.{ts,tsx}\"",
+    "release": "npm test && brunch build --production && ordamo-v3-sdk build-content app release",
+    "build-content": "ordamo-v3-sdk build-content app __tmp_build app/assets"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BernieSumption/ordamo-v3-sdk-demo-app.git"
   },
-  "browserify": {
-    "transform": [
-      "jadeify",
-      "brfs",
-      "urify/transform",
-      "envify"
-    ]
-  },
   "author": "Bernie Sumption <bernie@berniecode.com> (http://berniesumption.com/)",
   "license": "SEE LICENSE IN <LICENSE.txt>",
   "devDependencies": {
-    "brfs": "^1.4.3",
-    "browserify": "^13.0.0",
-    "chai": "^3.5.0",
-    "chokidar-cli": "^1.2.0",
-    "cpx": "^1.3.1",
-    "envify": "^3.4.0",
-    "jade": "^1.11.0",
-    "jadeify": "^4.6.0",
-    "less": "^2.6.1",
-    "live-server": "^0.9.2",
-    "mocha": "^2.4.5",
-    "npm-run-all": "^1.7.0",
-    "rimraf": "^2.5.2",
-    "source-map-support": "^0.4.0",
-    "tslint": "^3.7.1",
-    "typescript": "^1.8.10",
-    "uglify-js": "^2.6.2",
-    "urify": "^2.0.2",
-    "watchify": "^3.7.0"
+    "auto-reload-brunch": "^2.7.1",
+    "brunch": "^2.9.1",
+    "brunch-typescript": "^2.0.0",
+    "clean-css-brunch": "^2.0.0",
+    "css-brunch": "^2.6.1",
+    "javascript-brunch": "^2.0.0",
+    "less-brunch": "^2.7.1",
+    "rimraf": "^2.5.4",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.3",
+    "uglify-js-brunch": "^2.0.1"
   },
   "dependencies": {
-    "ordamo-v3-sdk": "^2.0.0"
+    "ordamo-v3-sdk": "^4.0.0"
   }
 }

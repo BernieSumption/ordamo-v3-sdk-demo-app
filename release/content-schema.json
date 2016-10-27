@@ -1,0 +1,82 @@
+{
+  "image": {
+    "type": "image",
+    "title": "Single image",
+    "minWidth": 50,
+    "maxWidth": 250,
+    "minHeight": 50,
+    "maxHeight": 250
+  },
+  "imageList": {
+    "type": "list",
+    "title": "List of images",
+    "minCount": 0,
+    "maxCount": 10,
+    "items": {
+      "type": "image",
+      "minWidth": 50,
+      "maxWidth": 250,
+      "minHeight": 50,
+      "maxHeight": 250
+    }
+  },
+  "video": {
+    "type": "image",
+    "title": "Single video",
+    "minWidth": 50,
+    "maxWidth": 250,
+    "minHeight": 50,
+    "maxHeight": 250,
+    "isVideo": true
+  },
+  "videoList": {
+    "type": "list",
+    "title": "List of videos",
+    "minCount": 0,
+    "maxCount": 10,
+    "items": {
+      "type": "image",
+      "minWidth": 50,
+      "maxWidth": 250,
+      "minHeight": 50,
+      "maxHeight": 250,
+      "isVideo": true
+    }
+  },
+  "number": {
+    "type": "number",
+    "title": "A number",
+    "integer": true
+  },
+  "numberList": {
+    "type": "list",
+    "title": "A list of numbers",
+    "minCount": 0,
+    "maxCount": 100,
+    "items": {
+      "type": "number",
+      "integer": false,
+      "minValue": 10,
+      "maxValue": 100
+    }
+  },
+  "text": {
+    "type": "text",
+    "title": "Bit of text",
+    "minLength": 0,
+    "maxLength": 200,
+    "multiline": false
+  },
+  "textList": {
+    "type": "list",
+    "title": "List of text blocks",
+    "minCount": 0,
+    "maxCount": 10,
+    "items": {
+      "type": "text",
+      "minLength": 1,
+      "maxLength": 2000,
+      "multiline": true
+    }
+  }
+}
