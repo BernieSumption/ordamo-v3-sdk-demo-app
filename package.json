@@ -4,9 +4,12 @@
   "description": "A demo application that uses the ordamo-v3-sdk package. This can be used as a template for new Ordamo V3 apps.",
   "scripts": {
     "clean": "rimraf __tmp_build",
-    "start": "npm run clean && npm run build-content && brunch watch --server",
+    "start": "npm run clean && npm run build-content && npm run start:dirty",
+    "start:dirty": "brunch watch --server",
+    "build": "npm run clean && npm run build-content && npm run build:dirty",
+    "build:dirty": "brunch build",
     "test": "tsc --project app --noEmit && tslint \"app/**/*.{ts,tsx}\"",
-    "release": "brunch build --production",
+    "release": "npm test && brunch build --production && ordamo-v3-sdk build-content app release",
     "build-content": "ordamo-v3-sdk build-content app __tmp_build app/assets"
   },
   "repository": {

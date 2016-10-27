@@ -1,6 +1,6 @@
 # Ordamo V3 SDK demo app
 
-A demo application that uses the `ordamo-v3-sdk` package. It demonstrates key featues of the
+A demo application that uses the `ordamo-v3-sdk` package. It demonstrates key features of the
 SDK and contains a configured development environment with scripts for running release builds,
 unit tests and a local development server with live reloading.
 

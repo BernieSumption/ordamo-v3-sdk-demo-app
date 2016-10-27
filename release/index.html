@@ -73,12 +73,13 @@
 			mouse. This is to prevent you from accidentally using functionality that won't be available in a real installation. In
 			your app code, you should listen to touchstart, touchmove and touchend events. Use touchstart instead of click.</li>
 		<li>There are two kinds of app, fullscreen and normal. Fullscreen apps appear above all other content, and can receive touch
-			events. This demp app is declared fullscreen, so that it's possible to click links.'
+			events.
 			<li>Normal apps are simpler to develop because they appear underneath an interactive overlay that displays spotlights above
 				plate locations, and shows a navigation menu. The cost of this is that they can't receive touch events, and can only
 				perform interaction through the events dispatched by <code>sdkInstance.onInteractions();</code>.</li>
 			<li>Fullscreen apps appear above all other content, so can receive touch events. They must render their own plate spotlights
-				if appropriate, and must provide an exit button that calls <code>sdkInstance.requestAppClose()</code>, <a href="#" id="request-app-close-button">like this one</a>				(try clicking it - in development mode, <code>sdkInstance.requestAppClose()</code> performs a fake app close).
+				if appropriate, and must provide an exit button that calls <code>sdkInstance.requestAppClose()</code>, <a
+					href="#" id="request-app-close-button">like this one</a>.
 			</li>
 		</li>
 	</ul>

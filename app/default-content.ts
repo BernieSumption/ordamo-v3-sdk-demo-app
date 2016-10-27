@@ -16,6 +16,25 @@ export default function getContent() {
       "default-content/curiosity.jpg"
     ],
     text: "Here's a message!",
-    textList: ["Here's a message!", "and another!"]
+    textList: [
+      "I'm a little teapot\nshort and stout",
+      "here's my handle\nhere's my spout",
+      "When I get all steamed up\nI just shout",
+      "Tip me over and pour me out"
+    ],
+    video: "default-content/video.mp4",
+    videoList: [
+      "default-content/video.ogv",
+      "default-content/video.webm"
+    ],
+    number: 3,
+    numberList: [
+      4,
+      5,
+      42,
+      65537,
+      Math.pow(2, 16),
+      2.685452
+    ]
   };
 }
