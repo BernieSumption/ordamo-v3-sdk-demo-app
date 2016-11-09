@@ -9,7 +9,7 @@
     "build": "npm run clean && npm run build-content && npm run build:dirty",
     "build:dirty": "brunch build",
     "test": "tsc --project app --noEmit && tslint \"app/**/*.{ts,tsx}\"",
-    "release": "npm test && brunch build --production && ordamo-v3-sdk build-content app release",
+    "release": "npm test && rimraf release && brunch build --production && ordamo-v3-sdk build-content app release",
     "build-content": "ordamo-v3-sdk build-content app __tmp_build app/assets"
   },
   "repository": {
