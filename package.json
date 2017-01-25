@@ -32,6 +32,6 @@
     "uglify-js-brunch": "^2.0.1"
   },
   "dependencies": {
-    "ordamo-v3-sdk": "^4.0.0"
+    "ordamo-v3-sdk": "^4.0.1"
   }
 }
