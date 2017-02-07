@@ -64,7 +64,7 @@ const SCHEMA = {
   text: sdk.text({
     title: "Bit of text",
     helpText: "A text string between 1 and 50 characters long",
-    minLength: 0,
+    minLength: 1,
     maxLength: 50,
     multiline: false
   }),
