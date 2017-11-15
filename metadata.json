@@ -1,6 +1,6 @@
 {
   "id": "ordamo-v3-sdk-demo-app",
-  "version": "1.1.2",
+  "version": "1.1.0",
   "description": "A demo application that uses the ordamo-v3-sdk package. This can be used as a template for new Ordamo V3 apps.",
   "defaultIconSrc": "menu-icons/default-app-icon.png",
   "menuNodes": [
